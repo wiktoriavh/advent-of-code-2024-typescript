@@ -16,19 +16,33 @@ function solution(input: string): { part1: string; part2: string } {
   );
 
   let index = 0;
-  let result = 0;
+  let result1 = 0;
   while (index < lines[0].length) {
     const left = Number(lines[0][index]);
     const right = Number(lines[1][index]);
 
     const diff = Math.abs(left - right);
-    result += diff;
+    result1 += diff;
     index++;
   }
 
+  let p1 = 0;
+  let p2 = 0;
+  const cache = new Map<number, number>();
+  let result2 = 0;
+
+  while (p1 < lines[0].length && p2 < lines[1].length) {
+    const left = Number(lines[0][p1]);
+    const right = Number(lines[1][p2]);
+
+    if (left === right) {
+      //
+    }
+  }
+
   return {
-    part1: result.toString(),
-    part2: "",
+    part1: result1.toString(),
+    part2: result2.toString(),
   };
 }
 

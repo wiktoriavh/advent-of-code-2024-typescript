@@ -5,7 +5,7 @@ type Solution = {
 
 console.log("Advent of Code 2024");
 
-const inputPath = "../inputs/{{day}}.txt";
+const inputPath = "./inputs/{{day}}.txt";
 const solutionPath = "./{{day}}.ts";
 
 export async function solveDay(): Promise<Solution> {
