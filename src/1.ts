@@ -35,8 +35,6 @@ function solution(input: string): { part1: string; part2: string } {
     const left = Number(lines[0][p1]);
     const right = Number(lines[1][p2]);
 
-    console.log(left, right);
-
     if (left > right) {
       p2++;
     }
