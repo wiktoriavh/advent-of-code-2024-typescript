@@ -31,12 +31,24 @@ function solution(input: string): { part1: string; part2: string } {
   const cache = new Map<number, number>();
   let result2 = 0;
 
-  while (p1 < lines[0].length && p2 < lines[1].length) {
+  while (p1 < lines[0].length) {
     const left = Number(lines[0][p1]);
     const right = Number(lines[1][p2]);
 
+    console.log(left, right);
+
+    if (left > right) {
+      p2++;
+    }
+
     if (left === right) {
-      //
+      cache.set(left, (cache.get(left) || 0) + 1);
+      p2++;
+    }
+    if (left !== right && left < right) {
+      const amount = cache.get(left) || 0;
+      result2 += left * amount;
+      p1++;
     }
   }
 

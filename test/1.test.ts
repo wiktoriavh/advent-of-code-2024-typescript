@@ -9,14 +9,8 @@ const EXAMPLE_1 = `3   4
 3   3`;
 const RESULT_1 = "11";
 
-const EXAMPLE_2 = `two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen`;
-const RESULT_2 = "281";
+const EXAMPLE_2 = EXAMPLE_1;
+const RESULT_2 = "31";
 
 describe("Day 1", () => {
   test("Part 1", () => {
