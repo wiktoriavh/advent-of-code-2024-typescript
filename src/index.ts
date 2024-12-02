@@ -9,7 +9,7 @@ const inputPath = "./inputs/{{day}}.txt";
 const solutionPath = "./{{day}}.ts";
 
 export async function solveDay(): Promise<Solution> {
-  const day = 1;
+  const day = process.env.DAY;
   if (!day) {
     throw new Error("DAY environment variable is not set.");
   }
