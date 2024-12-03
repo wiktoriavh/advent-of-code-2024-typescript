@@ -1,3 +1,6 @@
+import { readdir } from "node:fs/promises";
+import { extname } from "path";
+
 type Solution = {
   part1: string;
   part2: string;
@@ -8,12 +11,7 @@ console.log("Advent of Code 2024");
 const inputPath = "./inputs/{{day}}.txt";
 const solutionPath = "./{{day}}.ts";
 
-export async function solveDay(): Promise<Solution> {
-  const day = process.env.DAY;
-  if (!day) {
-    throw new Error("DAY environment variable is not set.");
-  }
-  console.log("Solving day: ", day);
+export async function solveDay(day: number): Promise<Solution> {
   try {
     const input = await Bun.file(
       inputPath.replace("{{day}}", String(day))
@@ -29,5 +27,28 @@ export async function solveDay(): Promise<Solution> {
   }
 }
 
-const result = await solveDay();
-console.log(result);
+async function runAllDays(): Promise<void> {
+  try {
+    const files = await readdir(import.meta.dir);
+    const fileNames = files
+      .map((file) => Number(file.replace(extname(file), "")))
+      .sort((a, b) => a - b);
+
+    fileNames.forEach(async (day) => {
+      if (Number.isNaN(day)) return;
+      const start = performance.now();
+      const result = await solveDay(day);
+      const end = performance.now();
+      console.log(`🎄 Day ${day} 🎄 \x1b[90m[${(end - start).toFixed(
+        2
+      )} ms]\x1b[0m
+      Part 1: \x1b[32m${result.part1}\x1b[0m
+      Part 2: \x1b[31m${result.part2}\x1b[0m`);
+    });
+  } catch (error) {
+    console.error("ERROR: ", error);
+    throw error;
+  }
+}
+
+await runAllDays();
