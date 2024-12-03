@@ -25,16 +25,37 @@ function solution(input: string): { part1: string; part2: string } {
 
     result1 += value;
   }
-  const regex2 = /mul\((\d{1,3}),(\d{1,3})\)/gm;
-  const matches2 = input.matchAll(regex);
+
+  const regex2 = /mul\((\d{1,3}),(\d{1,3})\)|(do|don't)\(\)/gm;
+  const matches2 = input.matchAll(regex2);
 
   function* multiply2(
     matches: RegExpStringIterator<RegExpExecArray>
   ): Generator<number> {
-    for (const match of matches) {
-      const [_, a, b] = match;
-      yield Number(a) * Number(b);
+    let match = matches.next();
+    let prevAction = "do";
+    while (!match.done) {
+      const [_, a, b, action] = match.value;
+      if (action !== undefined) {
+        prevAction = action;
+      }
+      if (prevAction === "do" && action === undefined) {
+        yield Number(a) * Number(b);
+      }
+      match = matches.next();
     }
+  }
+
+  const generator2 = multiply2(matches2);
+  let isDone2 = false;
+  while (!isDone2) {
+    const { value, done } = generator2.next();
+    if (done) {
+      isDone2 = true;
+      break;
+    }
+
+    result2 += value;
   }
 
   return {

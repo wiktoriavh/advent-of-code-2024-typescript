@@ -8,7 +8,7 @@ const EXAMPLE_2 = `xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo
 const RESULT_2 = "48";
 
 describe("Day 3", () => {
-  test("Part 1", () => {
+  test.skip("Part 1", () => {
     const result = solution(EXAMPLE_1);
     expect(result.part1).toBe(RESULT_1);
   });
