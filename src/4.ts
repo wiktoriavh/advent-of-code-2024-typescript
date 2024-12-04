@@ -10,14 +10,14 @@ function solution(input: string): { part1: string; part2: string } {
   while (py < matrix.length && px < matrix[py].length) {
     const char = matrix[py][px];
     if (char === "X") {
-      result1 += xmasRight(matrix, px, py, px);
-      result1 += xmasDown(matrix, px, py, py);
-      result1 += xmasLeft(matrix, px, py, px);
-      result1 += xmasUp(matrix, px, py, py);
-      result1 += xmasRightDown(matrix, px, py, px, py);
-      result1 += xmasLeftDown(matrix, px, py, px, py);
-      result1 += xmasLeftUp(matrix, px, py, px, py);
-      result1 += xmasRightUp(matrix, px, py, px, py);
+      result1 += checkXmasDirection(matrix, px, py, 1, 0);
+      result1 += checkXmasDirection(matrix, px, py, 0, 1);
+      result1 += checkXmasDirection(matrix, px, py, -1, 0);
+      result1 += checkXmasDirection(matrix, px, py, 0, -1);
+      result1 += checkXmasDirection(matrix, px, py, 1, 1);
+      result1 += checkXmasDirection(matrix, px, py, -1, 1);
+      result1 += checkXmasDirection(matrix, px, py, -1, -1);
+      result1 += checkXmasDirection(matrix, px, py, 1, -1);
     }
     if (px + 1 < matrix[py].length) {
       px++;
@@ -84,191 +84,36 @@ function masAsX(matrix: string[][], nextX: number, nextY: number) {
   return crosses === 2;
 }
 
-function xmasRight(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  px: number
-) {
-  if (checkRight(matrix, nextX, nextY, "M")) {
-    nextX = px + 1;
-    if (checkRight(matrix, nextX, nextY, "A")) {
-      nextX = px + 2;
-      if (checkRight(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasDown(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  py: number
-) {
-  if (checkDown(matrix, nextX, nextY, "M")) {
-    nextY = py + 1;
-    if (checkDown(matrix, nextX, nextY, "A")) {
-      nextY = py + 2;
-      if (checkDown(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasLeft(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  px: number
-) {
-  if (checkLeft(matrix, nextX, nextY, "M")) {
-    nextX = px - 1;
-    if (checkLeft(matrix, nextX, nextY, "A")) {
-      nextX = px - 2;
-      if (checkLeft(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasUp(matrix: string[][], nextX: number, nextY: number, py: number) {
-  if (checkUp(matrix, nextX, nextY, "M")) {
-    nextY = py - 1;
-    if (checkUp(matrix, nextX, nextY, "A")) {
-      nextY = py - 2;
-      if (checkUp(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasRightDown(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  px: number,
-  py: number
-) {
-  if (checkRightDown(matrix, nextX, nextY, "M")) {
-    nextX = px + 1;
-    nextY = py + 1;
-    if (checkRightDown(matrix, nextX, nextY, "A")) {
-      nextX = px + 2;
-      nextY = py + 2;
-      if (checkRightDown(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasLeftDown(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  px: number,
-  py: number
-) {
-  if (checkLeftDown(matrix, nextX, nextY, "M")) {
-    nextX = px - 1;
-    nextY = py + 1;
-    if (checkLeftDown(matrix, nextX, nextY, "A")) {
-      nextX = px - 2;
-      nextY = py + 2;
-      if (checkLeftDown(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasLeftUp(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  px: number,
-  py: number
-) {
-  if (checkLeftUp(matrix, nextX, nextY, "M")) {
-    nextX = px - 1;
-    nextY = py - 1;
-    if (checkLeftUp(matrix, nextX, nextY, "A")) {
-      nextX = px - 2;
-      nextY = py - 2;
-      if (checkLeftUp(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function xmasRightUp(
-  matrix: string[][],
-  nextX: number,
-  nextY: number,
-  px: number,
-  py: number
-) {
-  if (checkRightUp(matrix, nextX, nextY, "M")) {
-    nextX = px + 1;
-    nextY = py - 1;
-    if (checkRightUp(matrix, nextX, nextY, "A")) {
-      nextX = px + 2;
-      nextY = py - 2;
-      if (checkRightUp(matrix, nextX, nextY, "S")) {
-        return 1;
-      }
-    }
-  }
-  return 0;
-}
-
-function checkRight(
+function checkXmasDirection(
   matrix: string[][],
   px: number,
   py: number,
-  letter: string
-): boolean {
-  return px + 1 < matrix[py].length && matrix[py][px + 1] === letter;
-}
+  directionX: number,
+  directionY: number
+): number {
+  const xmas = ["M", "A", "S"];
+  let newY = py + directionX;
+  let newX = px + directionY;
 
-function checkDown(
-  matrix: string[][],
-  px: number,
-  py: number,
-  letter: string
-): boolean {
-  return py + 1 < matrix.length && matrix[py + 1][px] === letter;
-}
+  let pointer = 0;
+  while (pointer < xmas.length) {
+    if (
+      newY >= 0 &&
+      newY < matrix.length &&
+      newX >= 0 &&
+      newX < matrix[newY].length
+    ) {
+      if (matrix[newY][newX] === xmas[pointer]) {
+        pointer++;
+        newY += directionX;
+        newX += directionY;
+        continue;
+      }
+    }
+    break;
+  }
 
-function checkLeft(
-  matrix: string[][],
-  px: number,
-  py: number,
-  letter: string
-): boolean {
-  return px - 1 >= 0 && matrix[py][px - 1] === letter;
-}
-
-function checkUp(
-  matrix: string[][],
-  px: number,
-  py: number,
-  letter: string
-): boolean {
-  return py - 1 >= 0 && matrix[py - 1][px] === letter;
+  return pointer === xmas.length ? 1 : 0;
 }
 
 function checkRightDown(
