@@ -27,6 +27,22 @@ function solution(input: string): { part1: string; part2: string } {
     }
   }
 
+  let px2 = 0;
+  let py2 = 0;
+
+  while (py2 < matrix.length && px2 < matrix[py2].length) {
+    const char = matrix[py2][px2];
+    if (char === "A" && masAsX(matrix, px2, py2)) {
+      result2++;
+    }
+    if (px2 + 1 < matrix[py2].length) {
+      px2++;
+    } else {
+      px2 = 0;
+      py2++;
+    }
+  }
+
   return {
     part1: result1.toString(),
     part2: result2.toString(),
@@ -34,6 +50,39 @@ function solution(input: string): { part1: string; part2: string } {
 }
 
 export default solution;
+
+function masAsX(matrix: string[][], nextX: number, nextY: number) {
+  let crosses = 0;
+  if (
+    checkRightUp(matrix, nextX, nextY, "S") &&
+    checkLeftDown(matrix, nextX, nextY, "M")
+  ) {
+    crosses++;
+  }
+
+  if (
+    checkRightUp(matrix, nextX, nextY, "M") &&
+    checkLeftDown(matrix, nextX, nextY, "S")
+  ) {
+    crosses++;
+  }
+
+  if (
+    checkRightDown(matrix, nextX, nextY, "S") &&
+    checkLeftUp(matrix, nextX, nextY, "M")
+  ) {
+    crosses++;
+  }
+
+  if (
+    checkRightDown(matrix, nextX, nextY, "M") &&
+    checkLeftUp(matrix, nextX, nextY, "S")
+  ) {
+    crosses++;
+  }
+
+  return crosses === 2;
+}
 
 function xmasRight(
   matrix: string[][],

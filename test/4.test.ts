@@ -13,8 +13,8 @@ MAMMMXMMMM
 MXMXAXMASX`;
 const RESULT_1 = "18";
 
-const EXAMPLE_2 = `xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))`;
-const RESULT_2 = "48";
+const EXAMPLE_2 = EXAMPLE_1;
+const RESULT_2 = "9";
 
 describe("Day 4", () => {
   test("Part 1", () => {
