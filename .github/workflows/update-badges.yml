@@ -12,7 +12,7 @@ jobs:
         with:
           userid: ${{ secrets.AOC_USER_ID }}
           session: ${{ secrets.AOC_SESSION_ID }}
-          year: 2022
+          year: 2024
           file: "README.md"
           dayRegex: '(?<=https:\/\/img\.shields\.io\/badge\/202%20📅-)[0-9]+(?=-blue)'
           starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/Stars%20⭐-)[0-9]+(?=-yellow)'
