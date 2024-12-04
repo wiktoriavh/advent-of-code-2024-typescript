@@ -1,8 +1,8 @@
 name: Update AoC Badges 2024 🎄
 on:
   push:
-    paths:
-      - "src/*.ts"
+    branches:
+      - main
 jobs:
   update:
     runs-on: ubuntu-latest
