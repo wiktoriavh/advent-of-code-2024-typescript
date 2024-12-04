@@ -1,15 +1,3 @@
-# advent-of-code-2024-typescript
+# Advent of Code 2024 TypeScript
 
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.38. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+![](https://img.shields.io/badge/2024%20📅-orange) ![](https://img.shields.io/badge/Stars%20⭐-12-yellow) ![](https://img.shields.io/badge/Days%20completed-6-red)
