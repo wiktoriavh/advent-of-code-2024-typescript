@@ -6,18 +6,12 @@ function solution(input: string): { part1: string; part2: string } {
   const rules = rulesRaw.split("\n").map((rule) => rule.split("|"));
   const pages = pagesRaw.split("\n").map((page) => page.split(","));
 
-  const rulesMap = new Map<string, { before: string[]; after: string[] }>();
+  const rulesMap = new Map<string, { [key: string]: string }>();
   rules.forEach((rule) => {
-    const alpha = rulesMap.get(rule[0]) ?? { before: [], after: [] };
+    const ruleConfig = rulesMap.get(rule[0]) ?? {};
     rulesMap.set(rule[0], {
-      before: [...alpha.before, rule[1]],
-      after: alpha.after,
-    });
-
-    const beta = rulesMap.get(rule[1]) ?? { before: [], after: [] };
-    rulesMap.set(rule[1], {
-      after: [...beta.after, rule[0]],
-      before: beta.before,
+      ...ruleConfig,
+      [rule[1]]: `${rule[0]}.${rule[1]}`,
     });
   });
 
@@ -27,14 +21,29 @@ function solution(input: string): { part1: string; part2: string } {
     let comparePointer = 0;
 
     while (pagePointer < page.length) {
-      const currentPage = page[pagePointer];
       if (comparePointer === pagePointer) {
         comparePointer++;
       }
+      const currentPage = page[pagePointer];
+      const comparePage = page[comparePointer];
 
       const currentRule = rulesMap.get(currentPage);
+      const otherRule = rulesMap.get(comparePage);
+      if (currentRule && currentRule[comparePage]) {
+        comparePointer++;
+      }
+      if (otherRule && otherRule[currentPage]) {
+        isValid = false;
+        break;
+      }
+
+      pagePointer++;
     }
-    console.log("----");
+
+    if (isValid) {
+      const middle = page[(page.length - 1) / 2];
+      result1 += parseInt(middle);
+    }
   });
 
   return {
