@@ -7,13 +7,13 @@ const RESULT_1 = "2";
 const EXAMPLE_2 = EXAMPLE_1;
 const RESULT_2 = "31";
 
-describe("Day 2", () => {
+describe("Day {{day}}", () => {
   test("Part 1", () => {
     const result = solution(EXAMPLE_1);
     expect(result.part1).toBe(RESULT_1);
   });
 
-  test.skip("Part 2", () => {
+  test("Part 2", () => {
     const result = solution(EXAMPLE_2);
     expect(result.part2).toBe(RESULT_2);
   });
