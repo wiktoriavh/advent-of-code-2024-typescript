@@ -2,7 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 
 const createNewDay = async (day: number) => {
-  const dayString = day.toString().padStart(2, "0");
+  const dayString = day.toString();
   const inputPath = `./inputs/${dayString}.txt`;
   const solutionPath = `./src/${dayString}.ts`;
   const testPath = `./test/${dayString}.test.ts`;
