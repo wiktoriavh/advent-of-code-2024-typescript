@@ -50,10 +50,12 @@ function solution(input: string): { part1: string; part2: string } {
   x = guard.x;
   y = guard.y;
 
-  const visited = new Set<string>();
-  visited.add(`${x},${y}`);
+  const visited = new Map<string, Direction>();
+  visited.set(`${x}:${y}`, lines[y][x] as Direction);
+  const crates = new Set<string>();
   let inRoom = true;
   let currentDirection = lines[y][x] as Direction;
+  let start = true;
 
   while (inRoom) {
     const movement = move[currentDirection as Direction];
@@ -67,7 +69,7 @@ function solution(input: string): { part1: string; part2: string } {
       newX >= lines[newY].length
     ) {
       inRoom = false;
-      visited.add(`${x},${y}`);
+      visited.set(`${x}:${y}`, currentDirection);
       break;
     }
 
@@ -78,12 +80,32 @@ function solution(input: string): { part1: string; part2: string } {
       continue;
     }
 
-    visited.add(`${x},${y}`);
+    console.log("x", x, "y", y, visited.has(`${x}:${y}`));
+
+    if (!start && visited.has(`${x}:${y}`)) {
+      const previousDirection = visited.get(`${x}:${y}`) as Direction;
+      const possibleCratePosition = move[currentDirection];
+      const nextPossibleDirection = possibleCratePosition.nextDirection;
+      const crateX = x + possibleCratePosition.x;
+      const crateY = y + possibleCratePosition.y;
+
+      if (previousDirection === nextPossibleDirection) {
+        if (!visited.has(`${crateX}:${crateY}`)) {
+          crates.add(`${crateX}:${crateY}`);
+        }
+      }
+    }
+
+    visited.set(`${x}:${y}`, currentDirection);
     x += movement.x;
     y += movement.y;
+    start = false;
   }
 
   result1 = visited.size;
+  result2 = crates.size;
+
+  console.log("crates", ...crates);
 
   return {
     part1: result1.toString(),
