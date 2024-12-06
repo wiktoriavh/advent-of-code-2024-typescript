@@ -83,8 +83,6 @@ function solution(input: string): { part1: string; part2: string } {
     y += movement.y;
   }
 
-  console.log(visited.size);
-
   result1 = visited.size;
 
   return {
