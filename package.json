@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "bun run ./script/index.ts",
-    "create": "bun run ./script/newDay.ts",
+    "day": "bun run ./script/newDay.ts",
     "test": "bun test ./test/* --watch"
   }
 }
