@@ -43,6 +43,21 @@ function solution(input: string): { part1: string; part2: string } {
     if (isValid) {
       const middle = page[(page.length - 1) / 2];
       result1 += parseInt(middle);
+    } else {
+      page.sort((a, b) => {
+        const aRule = rulesMap.get(a);
+        if (aRule) {
+          const bRule = aRule[b];
+          if (bRule) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+        return 0;
+      });
+      const middle = page[(page.length - 1) / 2];
+      result2 += parseInt(middle);
     }
   });
 
