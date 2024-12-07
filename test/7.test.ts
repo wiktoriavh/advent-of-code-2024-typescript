@@ -13,7 +13,7 @@ const EXAMPLE_1 = `190: 10 19
 const RESULT_1 = "3749";
 
 const EXAMPLE_2 = EXAMPLE_1;
-const RESULT_2 = "0";
+const RESULT_2 = "11387";
 
 describe("Day 7", () => {
   test("Part 1", () => {
