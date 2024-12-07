@@ -80,7 +80,7 @@ function solution(input: string): { part1: string; part2: string } {
       continue;
     }
 
-    console.log("x", x, "y", y, visited.has(`${x}:${y}`));
+    //console.log("x", x, "y", y, visited.has(`${x}:${y}`));
 
     if (!start && visited.has(`${x}:${y}`)) {
       const previousDirection = visited.get(`${x}:${y}`) as Direction;
@@ -105,7 +105,7 @@ function solution(input: string): { part1: string; part2: string } {
   result1 = visited.size;
   result2 = crates.size;
 
-  console.log("crates", ...crates);
+  //console.log("crates", ...crates);
 
   return {
     part1: result1.toString(),

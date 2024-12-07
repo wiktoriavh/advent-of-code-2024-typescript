@@ -12,99 +12,45 @@ function solution(input: string): { part1: string; part2: string } {
     };
   });
 
-  const operators: Operator[] = ["*", "+"];
-  const correctResults: number[] = [];
+  const correctResults = new Map<
+    ReturnType<typeof crypto.randomUUID>,
+    number
+  >();
 
   lines.forEach((line) => {
     const { result, nums } = line;
-    const usedOperators = new Set<string>();
-
-    let inputOperations: string = "";
-
-    function getOperator(operatorIndex: number, loop: number = 0): Operator {
-      let index = operatorIndex;
-      let operator = operators[index];
-      if (
-        operator === "*" &&
-        usedOperators.size === Math.pow(2, nums.length - 1) / 2 &&
-        loop === 0
-      ) {
-        console.log("4 times", ...usedOperators);
-        index = (operatorIndex + 1) % 2;
-        operator = operators[index];
-      }
-      const createdOperations = `${inputOperations}${operator}`;
-      if (createdOperations === "++") {
-        console.log("createdOperations", createdOperations);
-      }
-      if (usedOperators.has(createdOperations)) {
-        index = (operatorIndex + 1) % 2;
-        return getOperator(index, loop + 1);
-      } else {
-        inputOperations = createdOperations;
-        return operator;
-      }
-    }
+    const id = crypto.randomUUID();
 
     function calculate(alpha: number, beta: number, operator: Operator) {
       return eval(`${alpha} ${operator} ${beta}`);
     }
 
-    let prev = nums[0];
-    let p1 = 1;
-    const lenghtOfOperations = nums.length - 1;
-    const variantsOfOperations = Math.pow(2, lenghtOfOperations);
-    console.log("-----");
-
-    while (p1 < nums.length) {
-      if (variantsOfOperations === usedOperators.size) {
-        inputOperations = "";
-        break;
-      }
-      let operator = "*";
-      try {
-        operator = getOperator(0);
-      } catch (error) {
-        break;
+    const foo = (a: number, b: number, index: number) => {
+      if (index === nums.length) {
+        return;
       }
 
-      const num = nums[p1];
-      prev = eval(`${prev} ${operator} ${num}`);
+      const alpha = calculate(a, b, "+");
+      const beta = calculate(a, b, "*");
 
-      if (prev > result) {
-        prev = nums[0];
-        p1 = 1;
-        usedOperators.add(inputOperations);
-        inputOperations = "";
-        continue;
+      if (alpha === result && index === nums.length - 1) {
+        correctResults.set(id, alpha);
+        return;
+      } else if (beta === result && index === nums.length - 1) {
+        correctResults.set(id, beta);
+        return;
+      } else {
+        foo(alpha, nums[index + 1], index + 1);
+        foo(beta, nums[index + 1], index + 1);
       }
+    };
 
-      if (prev === result && inputOperations.length === lenghtOfOperations) {
-        correctResults.push(result);
-        inputOperations = "";
-        break;
-      }
-
-      if (p1 === nums.length - 1) {
-        prev = nums[0];
-        p1 = 1;
-        usedOperators.add(inputOperations);
-        inputOperations = "";
-      }
-
-      if (inputOperations.length === lenghtOfOperations) {
-        inputOperations = "";
-        prev = nums[0];
-        p1 = 1;
-        usedOperators.add(inputOperations);
-      }
-
-      p1++;
-    }
+    foo(nums[0], nums[1], 1);
   });
 
-  console.log(correctResults);
-  result1 = correctResults.reduce((acc, curr) => acc + curr, 0);
+  const sum = (acc: number, curr: number) => acc + curr;
+  const values = Array.from(correctResults.values());
+  result1 = values.reduce(sum, 0);
 
   return {
     part1: result1.toString(),
