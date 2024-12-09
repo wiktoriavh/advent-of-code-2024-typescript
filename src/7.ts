@@ -59,7 +59,7 @@ function solution(input: string): { part1: string; part2: string } {
       if (index === nums.length) {
         return;
       }
-      console.log(a, b, index);
+      //console.log(a, b, index);
 
       const alpha = calculate(a, b, "+");
       const beta = calculate(a, b, "*");
@@ -81,7 +81,7 @@ function solution(input: string): { part1: string; part2: string } {
       }
     };
 
-    bar(nums[0], nums[1], 1);
+    //bar(nums[0], nums[1], 1);
   });
 
   const sum = (acc: number, curr: number) => acc + curr;
