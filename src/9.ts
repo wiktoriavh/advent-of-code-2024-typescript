@@ -62,7 +62,7 @@ function solution(input: string): { part1: string; part2: string } {
 
   pStart = 0;
   pEnd = disk.length - 1;
-  console.log(disk);
+  //console.log(disk);
 
   while (pEnd > 0) {
     let length = 0;
@@ -77,7 +77,7 @@ function solution(input: string): { part1: string; part2: string } {
       length++;
       pEnd--;
     }
-    console.log(length);
+    //console.log(length);
 
     let foo = 0;
     let index = 0;
