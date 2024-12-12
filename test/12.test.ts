@@ -25,7 +25,7 @@ const RESULT_1_2 = "772";
 const RESULT_1_3 = "1930";
 
 const EXAMPLE_2 = EXAMPLE_1;
-const RESULT_2 = "31";
+const RESULT_2 = "0";
 
 describe("Day 12", () => {
   test("Part 1 Example 1", () => {

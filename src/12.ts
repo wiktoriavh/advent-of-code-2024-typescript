@@ -47,6 +47,9 @@ function solution(input: string): { part1: string; part2: string } {
 
   lines.forEach((line, y) => {
     line.forEach((plant, x) => {
+      if (regions.has(plant) && regions.get(plant)?.area.has(`${x},${y}`)) {
+        return;
+      }
       fillFlood(x, y, plant, `${x},${y}`);
     });
   });
