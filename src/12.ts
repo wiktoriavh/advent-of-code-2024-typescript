@@ -56,17 +56,17 @@ function solution(input: string): { part1: string; part2: string } {
 
   const plantTypes = regions.keys();
 
-  for (const plantType of plantTypes) {
-    const region = regions.get(plantType);
-    const area = region?.area ?? new Set();
-    const fence = region?.fence ?? new Set();
+  // for (const plantType of plantTypes) {
+  //   const region = regions.get(plantType);
+  //   const area = region?.area ?? new Set();
+  //   const fence = region?.fence ?? new Set();
 
-    if (plantType === "C") {
-      console.log(fence);
-    }
+  //   if (plantType === "C") {
+  //     console.log(fence);
+  //   }
 
-    result1 += area.size * fence.size;
-  }
+  //   result1 += area.size * fence.size;
+  // }
 
   return {
     part1: result1.toString(),
